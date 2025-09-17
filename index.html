@@ -88,6 +88,10 @@
 .divider { height:1px; background:var(--soft); margin:14px 0; }
     
   </style>
+  <!-- Flatpickr: calendar + time pickers -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
 </head>
 
 <body>
@@ -148,12 +152,14 @@
 
 <div class="row">
   <div class="field">
-    <label class="label">Date <span class="hint">(DD-MM-YYYY)</span></label>
-    <input class="input" type="text" name="entry.783384764" placeholder="12-05-2025" required />
+    <label class="label">Date <span class="hint">(tap to open calendar)</span></label>
+    <!-- name MUST stay entry.783384764 to map to Google Form -->
+    <input class="input" id="hjoz-date" type="text" name="entry.783384764" placeholder="YYYY-MM-DD" required />
   </div>
   <div class="field">
-    <label class="label">Time <span class="hint">(HH:MM)</span></label>
-    <input class="input" type="text" name="entry.1080187328" placeholder="19:30" required />
+    <label class="label">Time <span class="hint">(24-hour)</span></label>
+    <!-- name MUST stay entry.1080187328 to map to Google Form -->
+    <input class="input" id="hjoz-time" type="text" name="entry.1080187328" placeholder="HH:MM" required />
   </div>
 </div>
 
@@ -219,6 +225,26 @@
     });
   })();
 </script>
+    <script>
+  // Calendar (yyyy-mm-dd), disable past days, allow next 60 days
+  flatpickr("#hjoz-date", {
+    dateFormat: "Y-m-d",
+    minDate: "today",
+    maxDate: new Date().fp_incr(60), // 60 days ahead
+    disableMobile: true // ensures consistent UI on phones
+  });
+
+  // Time picker (24h, 15-min steps)
+  flatpickr("#hjoz-time", {
+    enableTime: true,
+    noCalendar: true,
+    dateFormat: "H:i",
+    time_24hr: true,
+    minuteIncrement: 15,
+    disableMobile: true
+  });
+</script>
+
 
     <!-- For Restaurants / Sales Pitch -->
     <section class="section">
