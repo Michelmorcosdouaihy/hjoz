@@ -89,7 +89,7 @@
     
   </style>
   <!-- Flatpickr: calendar + time pickers -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/confetti.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 </head>
@@ -235,14 +235,14 @@
   });
 
   // Time picker (24h, 15-min steps)
-  flatpickr("#hjoz-time", {
-    enableTime: true,
-    noCalendar: true,
-    dateFormat: "H:i",
-    time_24hr: true,
-    minuteIncrement: 15,
-    disableMobile: true
-  });
+ flatpickr("#hjoz-time", {
+  enableTime: true,
+  noCalendar: true,
+  dateFormat: "h:i K",   // 12-hour + AM/PM
+  time_24hr: false,      // show AM/PM
+  minuteIncrement: 30,   // smoother selection (30 min steps)
+  disableMobile: true
+});
 </script>
 
 
