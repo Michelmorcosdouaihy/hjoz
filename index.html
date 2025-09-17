@@ -90,8 +90,8 @@
   </style>
   <!-- Flatpickr: calendar + time pickers -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<script src="https://cdn.jsdelivr.net/npm/flatpickr">
-</script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.js"></script>
+
 
 </head>
 
@@ -153,9 +153,9 @@
 
 <div class="row">
   <div class="field">
-  <label class="label">Date <span class="hint">(tap to open calendar)</span></label>
-  <input class="input" id="hjoz-date" type="text" name="entry.783384764" placeholder="DD-MM-YYYY" required />
-</div>
+    <label class="label">Date <span class="hint">(tap to open calendar)</span></label>
+    <input class="input" id="hjoz-date" type="text" name="entry.783384764" placeholder="YYYY-MM-DD" required />
+  </div>
   <div class="field">
     <label class="label">Time</label>
     <select class="select" name="entry.1080187328" required>
@@ -301,5 +301,18 @@
     // Set current year in footer automatically
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
+  <script>
+document.addEventListener('DOMContentLoaded', function () {
+  var el = document.getElementById('hjoz-date');
+  if (!el || !window.flatpickr) return;
+  flatpickr(el, {
+    dateFormat: "Y-m-d",
+    minDate: "today",
+    maxDate: new Date().fp_incr(60),
+    disableMobile: true
+  });
+});
+</script>
+
 </body>
 </html>
