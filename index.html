@@ -89,8 +89,9 @@
     
   </style>
   <!-- Flatpickr: calendar + time pickers -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/confetti.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
 
 </head>
 
@@ -153,13 +154,22 @@
 <div class="row">
   <div class="field">
     <label class="label">Date <span class="hint">(tap to open calendar)</span></label>
-    <!-- name MUST stay entry.783384764 to map to Google Form -->
-    <input class="input" id="hjoz-date" type="text" name="entry.783384764" placeholder="DD-MM-YYYY" required />
+    <input class="input" id="hjoz-date" type="text" name="entry.783384764" placeholder="YYYY-MM-DD" required />
   </div>
   <div class="field">
-    <label class="label">Time <span class="hint">(24-hour)</span></label>
-    <!-- name MUST stay entry.1080187328 to map to Google Form -->
-    <input class="input" id="hjoz-time" type="text" name="entry.1080187328" placeholder="HH:MM" required />
+    <label class="label">Time</label>
+    <select class="select" name="entry.1080187328" required>
+      <option value="">Choose…</option>
+      <option>06:00 PM</option>
+      <option>06:30 PM</option>
+      <option>07:00 PM</option>
+      <option>07:30 PM</option>
+      <option>08:00 PM</option>
+      <option>08:30 PM</option>
+      <option>09:00 PM</option>
+      <option>09:30 PM</option>
+      <option>10:00 PM</option>
+    </select>
   </div>
 </div>
 
@@ -227,24 +237,14 @@
 </script>
     <script>
   // Calendar (yyyy-mm-dd), disable past days, allow next 60 days
+  <script>
   flatpickr("#hjoz-date", {
     dateFormat: "Y-m-d",
     minDate: "today",
-    maxDate: new Date().fp_incr(60), // 60 days ahead
-    disableMobile: true // ensures consistent UI on phones
+    maxDate: new Date().fp_incr(60),
+    disableMobile: true
   });
-
-  // Time picker (24h, 15-min steps)
- flatpickr("#hjoz-time", {
-  enableTime: true,
-  noCalendar: true,
-  dateFormat: "h:i K",   // 12-hour + AM/PM
-  time_24hr: false,      // show AM/PM
-  minuteIncrement: 30,   // smoother selection (30 min steps)
-  disableMobile: true
-});
 </script>
-
 
     <!-- For Restaurants / Sales Pitch -->
     <section class="section">
