@@ -49,6 +49,44 @@
     .small{font-size:13px;color:#666}
     .notice{background:#f8fafc;border:1px solid #e5e7eb;border-radius:12px;padding:12px;margin-top:12px}
     .rtl{direction:rtl;text-align:right}
+    /* --- Hjoz form styles --- */
+.form { display:grid; gap:14px; margin-top:14px; }
+.row { display:grid; gap:12px; grid-template-columns:1fr 1fr; }
+@media (max-width:700px){ .row { grid-template-columns:1fr; } }
+
+.field { display:flex; flex-direction:column; gap:8px; }
+.label { font-weight:600; font-size:14px; color:#222; }
+.hint { font-size:12px; color:#666; }
+
+.input, .select, .textarea {
+  width:100%;
+  padding:12px 12px;
+  border:1px solid var(--soft);
+  border-radius:12px;
+  font-size:15px;
+  background:#fff;
+  transition:border-color .15s, box-shadow .15s;
+}
+.input:focus, .select:focus, .textarea:focus {
+  outline:none;
+  border-color:#cbd5e1;
+  box-shadow:0 0 0 4px #e2e8f0;
+}
+
+.checkbox-row { display:flex; gap:10px; align-items:flex-start; font-size:14px; color:#222; }
+
+.actions { display:flex; gap:10px; align-items:center; margin-top:4px; }
+.note { font-size:12px; color:#666; }
+
+.alert {
+  display:none;
+  margin-top:12px; padding:12px;
+  border-radius:12px; font-size:14px;
+}
+.alert.ok   { border:1px solid #d1fae5; background:#ecfdf5; color:#065f46; }
+.alert.err  { border:1px solid #fecaca; background:#fef2f2; color:#991b1b; }
+.divider { height:1px; background:var(--soft); margin:14px 0; }
+    
   </style>
 </head>
 
@@ -82,100 +120,85 @@
     </section>
 
     <!-- About / Value -->
-    <section id="about" class="section">
-      <div class="grid">
-        <div class="card">
-          <h3>Why Hjoz</h3>
-          <p>Guests already message you on WhatsApp & Instagram. Hjoz turns those into confirmed bookings with reminders so fewer tables go empty.</p>
-          <div>
-            <span class="tag">Arabic/English</span>
-            <span class="tag">WhatsApp Business</span>
-            <span class="tag">Low no-shows</span>
-          </div>
-        </div>
-        <div class="card">
-          <h3>Pilot restaurants</h3>
-          <ul>
-            <li>Em Sherif</li>
-            <li>Mama Jay’s</li>
-            <li>Centrale</li>
-          </ul>
-          <p class="muted small">Join as an early venue and try Hjoz free for 6 weeks.</p>
-        </div>
-        <div class="card">
-          <h3>How it works</h3>
-          <ol>
-            <li>Guests book from your link-in-bio.</li>
-            <li>They get instant WhatsApp confirmation.</li>
-            <li>Automatic reminders reduce no-shows.</li>
-          </ol>
-        </div>
+   <!-- Booking Form (Beautiful native form) -->
+<section id="book" class="section">
+  <div class="card">
+    <h3 style="margin:0 0 6px;">Request a Booking (Pilot)</h3>
+    <p class="muted" style="margin:0 0 12px;">Pick a venue, date, and time. We’ll confirm on WhatsApp.</p>
+    <div class="notice small">
+      <strong>Privacy:</strong> We only use your details to manage this booking. By submitting, you consent to be contacted on WhatsApp.
+    </div>
+
+    <form class="form" id="hjoz-form">
+      <div class="row">
+        <div class="field">
+         <label class="label">Restaurant</label>
+<select class="select" name="entry.2051215788" required>
+  <option value="">Choose…</option>
+  <option>Em Sherif</option>
+  <option>Mama Jay’s</option>
+  <option>Centrale</option>
+</select>
+</div>
+<div class="field">
+  <label class="label">Party size</label>
+  <input class="input" type="number" min="1" max="20" name="entry.1508549822" placeholder="e.g., 4" required />
+</div>
+</div>
+
+<div class="row">
+  <div class="field">
+    <label class="label">Date <span class="hint">(YYYY-MM-DD)</span></label>
+    <input class="input" type="text" name="entry.783384764" placeholder="2025-05-12" required />
+  </div>
+  <div class="field">
+    <label class="label">Time <span class="hint">(HH:MM)</span></label>
+    <input class="input" type="text" name="entry.1080187328" placeholder="19:30" required />
+  </div>
+</div>
+
+<div class="row">
+  <div class="field">
+    <label class="label">Name</label>
+    <input class="input" type="text" name="entry.1762457005" placeholder="Your name" required />
+  </div>
+  <div class="field">
+    <label class="label">Phone (WhatsApp)</label>
+    <input class="input" type="tel" name="entry.85522125" placeholder="+961…" required />
+  </div>
+</div>
+
+<div class="field">
+  <label class="label">Notes <span class="hint">(optional)</span></label>
+  <!-- 👉 You still need to generate the Notes ID by filling that field in the "Get pre-filled link" -->
+  <textarea class="textarea" name="entry.677147808" rows="3" placeholder="Occasion, seating preference, etc."></textarea>
+</div>
+
+<label class="checkbox-row">
+  <input type="checkbox" name="entry.1076176584" required />
+  <span>I agree to be contacted on WhatsApp to confirm my booking.</span>
+</label>
+      
+      <div class="divider"></div>
+
+      <div class="actions">
+        <button class="btn primary" type="submit">Send Booking Request</button>
+        <span class="note">We usually reply within a few hours.</span>
       </div>
-    </section>
 
-   <form class="form" id="hjoz-form">
-  <div class="row">
-    <div>
-      <label class="label">Restaurant</label>
-      <select class="select" name="entry.RESTAURANT_ID" required>
-        <option value="">Choose…</option>
-        <option>Em Sherif</option>
-        <option>Mama Jay’s</option>
-        <option>Centrale</option>
-      </select>
-    </div>
-    <div>
-      <label class="label">Party size</label>
-      <input class="input" type="number" min="1" max="20" name="entry.PARTY_ID" placeholder="e.g., 4" required />
-    </div>
+      <div class="alert ok"  id="hjoz-ok">Thanks! We’ve received your request. We’ll confirm on WhatsApp shortly.</div>
+      <div class="alert err" id="hjoz-err">Something went wrong. Please try again.</div>
+    </form>
   </div>
-
-  <div class="row">
-    <div>
-      <label class="label">Date</label>
-      <!-- If you keep Google’s Date type, switch this to type="text" and set Short answer in the Form -->
-      <input class="input" type="text" name="entry.DATE_ID" placeholder="DD-MM-YYYY" required />
-    </div>
-    <div>
-      <label class="label">Time</label>
-      <input class="input" type="text" name="entry.TIME_ID" placeholder="HH:MM" required />
-    </div>
-  </div>
-
-  <div class="row">
-    <div>
-      <label class="label">Name</label>
-      <input class="input" type="text" name="entry.NAME_ID" placeholder="Your name" required />
-    </div>
-    <div>
-      <label class="label">Phone (WhatsApp)</label>
-      <input class="input" type="tel" name="entry.PHONE_ID" placeholder="+961…" required />
-    </div>
-  </div>
-
-  <div>
-    <label class="label">Notes (optional)</label>
-    <textarea class="textarea" name="entry.NOTES_ID" rows="3" placeholder="Occasion, seating preference, etc."></textarea>
-  </div>
-
-  <label style="display:flex;gap:8px;align-items:flex-start; font-size:14px;">
-    <input type="checkbox" name="entry.CONSENT_ID" required />
-    <span>I agree to be contacted on WhatsApp to confirm my booking.</span>
-  </label>
-
-  <button class="btn primary" type="submit">Send Booking Request</button>
-  <div class="success" id="hjoz-ok">Thanks! We’ll confirm on WhatsApp shortly.</div>
-  <div class="error" id="hjoz-err">Hmm, something went wrong. Please try again.</div>
-</form>
+</section>
 
 <script>
   (function(){
     const form = document.getElementById('hjoz-form');
-    const ok = document.getElementById('hjoz-ok');
-    const err = document.getElementById('hjoz-err');
-
-    // Replace with your real /formResponse URL
-    const ACTION = "https://docs.google.com/forms/d/1wYQGg3LoEco29XmRVykrHV7IVzi8wBRQ6GykJlqGweA/formResponse";
+    const ok   = document.getElementById('hjoz-ok');
+    const err  = document.getElementById('hjoz-err');
+    
+    const ACTION = "const ACTION = "https://docs.google.com/forms/d/e/1FAIpQLSec0G2G5ZC2A4Q_AYiqh8jlgUdpnj41p6CqHULFN8LHtHGVtw/formResponse";
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
