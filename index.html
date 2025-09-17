@@ -90,8 +90,8 @@
   </style>
   <!-- Flatpickr: calendar + time pickers -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/flatpickr">
+</script>
 
 </head>
 
@@ -154,7 +154,7 @@
 <div class="row">
   <div class="field">
   <label class="label">Date <span class="hint">(tap to open calendar)</span></label>
-  <input class="input" id="hjoz-date" type="text" name="entry.783384764" placeholder="YYYY-MM-DD" required />
+  <input class="input" id="hjoz-date" type="text" name="entry.783384764" placeholder="DD-MM-YYYY" required />
 </div>
   <div class="field">
     <label class="label">Time</label>
@@ -239,12 +239,26 @@
   // Calendar (yyyy-mm-dd), disable past days, allow next 60 days
   <script>
   <script>
-  flatpickr("#hjoz-date", {
-    dateFormat: "Y-m-d",
-    minDate: "today",
-    maxDate: new Date().fp_incr(60),
-    disableMobile: true
-  });
+(function(){
+  function init() {
+    if (!window.flatpickr) return;
+    const el = document.getElementById('hjoz-date');
+    if (!el) return;
+    try {
+      flatpickr(el, {
+        dateFormat: "Y-m-d",
+        minDate: "today",
+        maxDate: new Date().fp_incr(60),
+        disableMobile: true
+      });
+    } catch (e) { /* ignore */ }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
 </script>
     
     <!-- For Restaurants / Sales Pitch -->
