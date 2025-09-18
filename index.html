@@ -42,12 +42,12 @@
     .notice{background:#f8fafc;border:1px solid #e5e7eb;border-radius:12px;padding:12px;margin-top:12px}
     .rtl{direction:rtl;text-align:right}
 
-    /* --- Hjoz form styles --- */
+    /* --- Hjoz form styles (Bootstrap-safe) --- */
     .form { display:grid; gap:14px; margin-top:14px; }
-    .row { display:grid; gap:12px; grid-template-columns:1fr 1fr; }
-    @media (max-width:700px){ .row { grid-template-columns:1fr; } }
+    .h-row { display:grid; gap:12px; grid-template-columns:1fr 1fr; }  /* renamed from .row */
+    @media (max-width:700px){ .h-row { grid-template-columns:1fr; } }
     .field { display:flex; flex-direction:column; gap:8px; }
-    .label { font-weight:600; font-size:14px; color:#222; }
+    .label { font-weight:600; font-size:14px; color:#222; margin-bottom:2px; }
     .hint { font-size:12px; color:#666; }
     .input, .select, .textarea {
       width:100%; padding:12px 12px; border:1px solid var(--soft); border-radius:12px;
@@ -62,11 +62,11 @@
     .alert.err{ border:1px solid #fecaca; background:#fef2f2; color:#991b1b; }
     .divider { height:1px; background:var(--soft); margin:14px 0; }
 
-    /* Flatpickr softening */
+    /* Flatpickr soft look */
     .flatpickr-calendar { border-radius:16px !important; box-shadow:0 4px 14px rgba(0,0,0,.08) !important; border:1px solid #e5e7eb !important; font-family:inherit !important; }
     .flatpickr-day { border-radius:8px !important; }
 
-    /* ClockPicker popover styling */
+    /* ClockPicker popover style */
     .clockpicker-popover {
       border-radius:16px !important;
       box-shadow:0 8px 24px rgba(0,0,0,.08) !important;
@@ -88,32 +88,6 @@
   <!-- ClockPicker (analog time) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/clockpicker/0.0.7/bootstrap-clockpicker.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/clockpicker/0.0.7/bootstrap-clockpicker.min.js"></script>
-
-  <style>
-/* Fix alignment inside our booking form (Bootstrap-safe overrides) */
-#hjoz-form .row{
-  display:grid !important;
-  grid-template-columns: 1fr 1fr;
-  gap:12px;
-  margin:0 !important;
-}
-#hjoz-form .row > .field{
-  padding:0 !important;
-  min-width:0;
-}
-@media (max-width:700px){
-  #hjoz-form .row{ grid-template-columns: 1fr; }
-}
-#hjoz-form .input,
-#hjoz-form .select,
-#hjoz-form .textarea{
-  width:100% !important;
-}
-#hjoz-form .clockpicker{ width:100%; }
-#hjoz-form .clockpicker .input{ width:100%; }
-#hjoz-form .label{ margin-bottom:2px; }
-</style>
-  
 </head>
 
 <body>
@@ -155,7 +129,7 @@
         </div>
 
         <form class="form" id="hjoz-form">
-          <div class="row">
+          <div class="h-row">
             <div class="field">
               <label class="label">Restaurant</label>
               <select class="select" name="entry.2051215788" required>
@@ -171,7 +145,7 @@
             </div>
           </div>
 
-          <div class="row">
+          <div class="h-row">
             <div class="field">
               <label class="label">Date <span class="hint">(tap to open calendar)</span></label>
               <input class="input" id="hjoz-date" type="text" name="entry.783384764" placeholder="YYYY-MM-DD" required />
@@ -194,7 +168,7 @@
             </div>
           </div>
 
-          <div class="row">
+          <div class="h-row">
             <div class="field">
               <label class="label">Name</label>
               <input class="input" type="text" name="entry.1762457005" placeholder="Your name" required />
@@ -332,7 +306,6 @@
       const ok   = document.getElementById('hjoz-ok');
       const err  = document.getElementById('hjoz-err');
 
-      // ✅ Correct ACTION URL
       const ACTION = "https://docs.google.com/forms/d/e/1FAIpQLSec0G2G5ZC2A4Q_AYiqh8jlgUdpnj41p6CqHULFN8LHtHGVtw/formResponse";
 
       form.addEventListener('submit', async (e) => {
