@@ -88,6 +88,32 @@
   <!-- ClockPicker (analog time) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/clockpicker/0.0.7/bootstrap-clockpicker.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/clockpicker/0.0.7/bootstrap-clockpicker.min.js"></script>
+
+  <style>
+/* Fix alignment inside our booking form (Bootstrap-safe overrides) */
+#hjoz-form .row{
+  display:grid !important;
+  grid-template-columns: 1fr 1fr;
+  gap:12px;
+  margin:0 !important;
+}
+#hjoz-form .row > .field{
+  padding:0 !important;
+  min-width:0;
+}
+@media (max-width:700px){
+  #hjoz-form .row{ grid-template-columns: 1fr; }
+}
+#hjoz-form .input,
+#hjoz-form .select,
+#hjoz-form .textarea{
+  width:100% !important;
+}
+#hjoz-form .clockpicker{ width:100%; }
+#hjoz-form .clockpicker .input{ width:100%; }
+#hjoz-form .label{ margin-bottom:2px; }
+</style>
+  
 </head>
 
 <body>
