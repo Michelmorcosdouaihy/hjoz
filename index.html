@@ -92,7 +92,26 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.js"></script>
 
+  <!-- jQuery (required by ClockPicker) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
+<!-- ClockPicker CSS/JS (analog clock with hands) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/clockpicker/0.0.7/bootstrap-clockpicker.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clockpicker/0.0.7/bootstrap-clockpicker.min.js"></script>
+
+<style>
+  .clockpicker-popover {
+    border-radius:16px !important;
+    box-shadow:0 8px 24px rgba(0,0,0,.08) !important;
+    border:1px solid #e5e7eb !important;
+  }
+  .clockpicker-popover .popover-title,
+  .clockpicker-popover .popover-content {
+    font-family: inherit !important;
+  }
+</style>
+
+  
 </head>
 
 <body>
@@ -156,21 +175,23 @@
     <label class="label">Date <span class="hint">(tap to open calendar)</span></label>
     <input class="input" id="hjoz-date" type="text" name="entry.783384764" placeholder="YYYY-MM-DD" required />
   </div>
-  <div class="field">
-    <label class="label">Time</label>
-    <select class="select" name="entry.1080187328" required>
-      <option value="">Choose…</option>
-      <option>06:00 PM</option>
-      <option>06:30 PM</option>
-      <option>07:00 PM</option>
-      <option>07:30 PM</option>
-      <option>08:00 PM</option>
-      <option>08:30 PM</option>
-      <option>09:00 PM</option>
-      <option>09:30 PM</option>
-      <option>10:00 PM</option>
-    </select>
+ <div class="field">
+  <label class="label">Time <span class="hint">(tap the clock)</span></label>
+  <div class="clockpicker" data-autoclose="true" data-placement="bottom" data-align="left">
+    <!-- IMPORTANT: keep the Google Form name exactly as below -->
+    <input
+      class="input"
+      id="hjoz-time"
+      type="text"
+      name="entry.1080187328"
+      placeholder="07:30 PM"
+      required
+      readonly
+      style="cursor:pointer;"
+    />
   </div>
+  <div class="hint">AM/PM • 15-minute steps</div>
+</div>
 </div>
 
 <div class="row">
@@ -313,6 +334,24 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 </script>
+
+  <div class="field">
+  <label class="label">Time <span class="hint">(tap the clock)</span></label>
+  <div class="clockpicker" data-autoclose="true" data-placement="bottom" data-align="left">
+    <!-- IMPORTANT: keep the Google Form name exactly as below -->
+    <input
+      class="input"
+      id="hjoz-time"
+      type="text"
+      name="entry.1080187328"
+      placeholder="07:30 PM"
+      required
+      readonly
+      style="cursor:pointer;"
+    />
+  </div>
+  <div class="hint">AM/PM • 15-minute steps</div>
+</div>
 
 </body>
 </html>
