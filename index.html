@@ -13,9 +13,7 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2218%22 fill=%22%23111%22/><text x=%2250%25%22 y=%2258%25%22 text-anchor=%22middle%22 font-size=%2256%22 fill=%22white%22 font-family=%22Arial,Helvetica,sans-serif%22>H</text></svg>">
 
   <style>
-    :root{
-      --bg:#ffffff; --text:#111; --muted:#555; --soft:#eee; --brand:#111; --accent:#0ea5e9;
-    }
+    :root{ --bg:#fff; --text:#111; --muted:#555; --soft:#eee; --brand:#111; }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial,sans-serif}
     a{color:inherit}
@@ -39,79 +37,57 @@
     .section{margin-top:28px}
     ul{padding-left:18px}
     .tag{display:inline-block;background:#f6f6f6;border:1px solid var(--soft);padding:4px 8px;border-radius:999px;font-size:12px;color:#444;margin-right:6px;margin-top:4px}
-    .form-embed iframe{width:100%;height:1000px;border:0}
-    @media (max-width:900px){.grid{grid-template-columns:1fr}}
-    @media (max-width:600px){
-      h1{font-size:26px}
-      .form-embed iframe{height:1180px}
-    }
     footer{margin-top:40px;border-top:1px solid var(--soft);padding-top:16px;color:#555;font-size:14px}
     .small{font-size:13px;color:#666}
     .notice{background:#f8fafc;border:1px solid #e5e7eb;border-radius:12px;padding:12px;margin-top:12px}
     .rtl{direction:rtl;text-align:right}
+
     /* --- Hjoz form styles --- */
-.form { display:grid; gap:14px; margin-top:14px; }
-.row { display:grid; gap:12px; grid-template-columns:1fr 1fr; }
-@media (max-width:700px){ .row { grid-template-columns:1fr; } }
+    .form { display:grid; gap:14px; margin-top:14px; }
+    .row { display:grid; gap:12px; grid-template-columns:1fr 1fr; }
+    @media (max-width:700px){ .row { grid-template-columns:1fr; } }
+    .field { display:flex; flex-direction:column; gap:8px; }
+    .label { font-weight:600; font-size:14px; color:#222; }
+    .hint { font-size:12px; color:#666; }
+    .input, .select, .textarea {
+      width:100%; padding:12px 12px; border:1px solid var(--soft); border-radius:12px;
+      font-size:15px; background:#fff; transition:border-color .15s, box-shadow .15s;
+    }
+    .input:focus, .select:focus, .textarea:focus { outline:none; border-color:#cbd5e1; box-shadow:0 0 0 4px #e2e8f0; }
+    .checkbox-row { display:flex; gap:10px; align-items:flex-start; font-size:14px; color:#222; }
+    .actions { display:flex; gap:10px; align-items:center; margin-top:4px; }
+    .note { font-size:12px; color:#666; }
+    .alert { display:none; margin-top:12px; padding:12px; border-radius:12px; font-size:14px; }
+    .alert.ok{ border:1px solid #d1fae5; background:#ecfdf5; color:#065f46; }
+    .alert.err{ border:1px solid #fecaca; background:#fef2f2; color:#991b1b; }
+    .divider { height:1px; background:var(--soft); margin:14px 0; }
 
-.field { display:flex; flex-direction:column; gap:8px; }
-.label { font-weight:600; font-size:14px; color:#222; }
-.hint { font-size:12px; color:#666; }
+    /* Flatpickr softening */
+    .flatpickr-calendar { border-radius:16px !important; box-shadow:0 4px 14px rgba(0,0,0,.08) !important; border:1px solid #e5e7eb !important; font-family:inherit !important; }
+    .flatpickr-day { border-radius:8px !important; }
 
-.input, .select, .textarea {
-  width:100%;
-  padding:12px 12px;
-  border:1px solid var(--soft);
-  border-radius:12px;
-  font-size:15px;
-  background:#fff;
-  transition:border-color .15s, box-shadow .15s;
-}
-.input:focus, .select:focus, .textarea:focus {
-  outline:none;
-  border-color:#cbd5e1;
-  box-shadow:0 0 0 4px #e2e8f0;
-}
-
-.checkbox-row { display:flex; gap:10px; align-items:flex-start; font-size:14px; color:#222; }
-
-.actions { display:flex; gap:10px; align-items:center; margin-top:4px; }
-.note { font-size:12px; color:#666; }
-
-.alert {
-  display:none;
-  margin-top:12px; padding:12px;
-  border-radius:12px; font-size:14px;
-}
-.alert.ok   { border:1px solid #d1fae5; background:#ecfdf5; color:#065f46; }
-.alert.err  { border:1px solid #fecaca; background:#fef2f2; color:#991b1b; }
-.divider { height:1px; background:var(--soft); margin:14px 0; }
-    
+    /* ClockPicker popover styling */
+    .clockpicker-popover {
+      border-radius:16px !important;
+      box-shadow:0 8px 24px rgba(0,0,0,.08) !important;
+      border:1px solid #e5e7eb !important;
+    }
+    .clockpicker-popover .popover-title,
+    .clockpicker-popover .popover-content { font-family: inherit !important; }
   </style>
-  <!-- Flatpickr: calendar + time pickers -->
+
+  <!-- Flatpickr (calendar) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.js"></script>
 
-  <!-- jQuery (required by ClockPicker) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <!-- Bootstrap 3 + jQuery (required for ClockPicker) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-<!-- ClockPicker CSS/JS (analog clock with hands) -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/clockpicker/0.0.7/bootstrap-clockpicker.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clockpicker/0.0.7/bootstrap-clockpicker.min.js"></script>
-
-<style>
-  .clockpicker-popover {
-    border-radius:16px !important;
-    box-shadow:0 8px 24px rgba(0,0,0,.08) !important;
-    border:1px solid #e5e7eb !important;
-  }
-  .clockpicker-popover .popover-title,
-  .clockpicker-popover .popover-content {
-    font-family: inherit !important;
-  }
-</style>
-
-  
+  <!-- ClockPicker (analog time) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/clockpicker/0.0.7/bootstrap-clockpicker.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clockpicker/0.0.7/bootstrap-clockpicker.min.js"></script>
 </head>
 
 <body>
@@ -143,145 +119,90 @@
       </div>
     </section>
 
-    <!-- About / Value -->
-   <!-- Booking Form (Beautiful native form) -->
-<section id="book" class="section">
-  <div class="card">
-    <h3 style="margin:0 0 6px;">Request a Booking (Pilot)</h3>
-    <p class="muted" style="margin:0 0 12px;">Pick a venue, date, and time. We’ll confirm on WhatsApp.</p>
-    <div class="notice small">
-      <strong>Privacy:</strong> We only use your details to manage this booking. By submitting, you consent to be contacted on WhatsApp.
-    </div>
+    <!-- Booking Form -->
+    <section id="book" class="section">
+      <div class="card">
+        <h3 style="margin:0 0 6px;">Request a Booking (Pilot)</h3>
+        <p class="muted" style="margin:0 0 12px;">Pick a venue, date, and time. We’ll confirm on WhatsApp.</p>
+        <div class="notice small">
+          <strong>Privacy:</strong> We only use your details to manage this booking. By submitting, you consent to be contacted on WhatsApp.
+        </div>
 
-    <form class="form" id="hjoz-form">
-      <div class="row">
-        <div class="field">
-         <label class="label">Restaurant</label>
-<select class="select" name="entry.2051215788" required>
-  <option value="">Choose…</option>
-  <option>Em Sherif</option>
-  <option>Mama Jay’s</option>
-  <option>Centrale</option>
-</select>
-</div>
-<div class="field">
-  <label class="label">Party size</label>
-  <input class="input" type="number" min="1" max="20" name="entry.1508549822" placeholder="e.g., 4" required />
-</div>
-</div>
+        <form class="form" id="hjoz-form">
+          <div class="row">
+            <div class="field">
+              <label class="label">Restaurant</label>
+              <select class="select" name="entry.2051215788" required>
+                <option value="">Choose…</option>
+                <option>Em Sherif</option>
+                <option>Mama Jay’s</option>
+                <option>Centrale</option>
+              </select>
+            </div>
+            <div class="field">
+              <label class="label">Party size</label>
+              <input class="input" type="number" min="1" max="20" name="entry.1508549822" placeholder="e.g., 4" required />
+            </div>
+          </div>
 
-<div class="row">
-  <div class="field">
-    <label class="label">Date <span class="hint">(tap to open calendar)</span></label>
-    <input class="input" id="hjoz-date" type="text" name="entry.783384764" placeholder="YYYY-MM-DD" required />
-  </div>
- <div class="field">
-  <label class="label">Time <span class="hint">(tap the clock)</span></label>
-  <div class="clockpicker" data-autoclose="true" data-placement="bottom" data-align="left">
-    <!-- IMPORTANT: keep the Google Form name exactly as below -->
-    <input
-      class="input"
-      id="hjoz-time"
-      type="text"
-      name="entry.1080187328"
-      placeholder="07:30 PM"
-      required
-      readonly
-      style="cursor:pointer;"
-    />
-  </div>
-  <div class="hint">AM/PM • 15-minute steps</div>
-</div>
-</div>
+          <div class="row">
+            <div class="field">
+              <label class="label">Date <span class="hint">(tap to open calendar)</span></label>
+              <input class="input" id="hjoz-date" type="text" name="entry.783384764" placeholder="YYYY-MM-DD" required />
+            </div>
+            <div class="field">
+              <label class="label">Time <span class="hint">(tap the clock)</span></label>
+              <div class="clockpicker" data-autoclose="true" data-placement="bottom" data-align="left">
+                <input
+                  class="input"
+                  id="hjoz-time"
+                  type="text"
+                  name="entry.1080187328"
+                  placeholder="07:30 PM"
+                  required
+                  readonly
+                  style="cursor:pointer;"
+                />
+              </div>
+              <div class="hint">AM/PM • 15-minute steps</div>
+            </div>
+          </div>
 
-<div class="row">
-  <div class="field">
-    <label class="label">Name</label>
-    <input class="input" type="text" name="entry.1762457005" placeholder="Your name" required />
-  </div>
-  <div class="field">
-    <label class="label">Phone (WhatsApp)</label>
-    <input class="input" type="tel" name="entry.85522125" placeholder="+961…" required />
-  </div>
-</div>
+          <div class="row">
+            <div class="field">
+              <label class="label">Name</label>
+              <input class="input" type="text" name="entry.1762457005" placeholder="Your name" required />
+            </div>
+            <div class="field">
+              <label class="label">Phone (WhatsApp)</label>
+              <input class="input" type="tel" name="entry.85522125" placeholder="+961…" required />
+            </div>
+          </div>
 
-<div class="field">
-  <label class="label">Notes <span class="hint">(optional)</span></label>
-  <!-- 👉 You still need to generate the Notes ID by filling that field in the "Get pre-filled link" -->
-  <textarea class="textarea" name="entry.677147808" rows="3" placeholder="Occasion, seating preference, etc."></textarea>
-</div>
+          <div class="field">
+            <label class="label">Notes <span class="hint">(optional)</span></label>
+            <textarea class="textarea" name="entry.677147808" rows="3" placeholder="Occasion, seating preference, etc."></textarea>
+          </div>
 
-<label class="checkbox-row">
-  <input type="checkbox" name="entry.1076176584" required />
-  <span>I agree to be contacted on WhatsApp to confirm my booking.</span>
-</label>
-      
-      <div class="divider"></div>
+          <label class="checkbox-row">
+            <input type="checkbox" name="entry.1076176584" required />
+            <span>I agree to be contacted on WhatsApp to confirm my booking.</span>
+          </label>
 
-      <div class="actions">
-        <button class="btn primary" type="submit">Send Booking Request</button>
-        <span class="note">We usually reply within a few hours.</span>
+          <div class="divider"></div>
+
+          <div class="actions">
+            <button class="btn primary" type="submit">Send Booking Request</button>
+            <span class="note">We usually reply within a few hours.</span>
+          </div>
+
+          <div class="alert ok"  id="hjoz-ok">Thanks! We’ve received your request. We’ll confirm on WhatsApp shortly.</div>
+          <div class="alert err" id="hjoz-err">Something went wrong. Please try again.</div>
+        </form>
       </div>
+    </section>
 
-      <div class="alert ok"  id="hjoz-ok">Thanks! We’ve received your request. We’ll confirm on WhatsApp shortly.</div>
-      <div class="alert err" id="hjoz-err">Something went wrong. Please try again.</div>
-    </form>
-  </div>
-</section>
-
-<script>
-  (function(){
-    const form = document.getElementById('hjoz-form');
-    const ok   = document.getElementById('hjoz-ok');
-    const err  = document.getElementById('hjoz-err');
-    
-    const ACTION = "const ACTION = "https://docs.google.com/forms/d/e/1FAIpQLSec0G2G5ZC2A4Q_AYiqh8jlgUdpnj41p6CqHULFN8LHtHGVtw/formResponse";
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      ok.style.display = 'none';
-      err.style.display = 'none';
-
-      const data = new FormData(form);
-
-      try {
-        await fetch(ACTION, { method: 'POST', mode: 'no-cors', body: data });
-        form.reset();
-        ok.style.display = 'block';
-        ok.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      } catch {
-        err.style.display = 'block';
-        err.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-    });
-  })();
-</script>
-    <script>
-  // Calendar (yyyy-mm-dd), disable past days, allow next 60 days
-  <script>
-(function(){
-  function init() {
-    if (!window.flatpickr) return;
-    const el = document.getElementById('hjoz-date');
-    if (!el) return;
-    try {
-      flatpickr(el, {
-        dateFormat: "Y-m-d",
-        minDate: "today",
-        maxDate: new Date().fp_incr(60),
-        disableMobile: true
-      });
-    } catch (e) { /* ignore */ }
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
-})();
-</script>
-    
-    <!-- For Restaurants / Sales Pitch -->
+    <!-- For Restaurants -->
     <section class="section">
       <div class="card">
         <h3>For Restaurants</h3>
@@ -318,40 +239,93 @@
     </footer>
   </div>
 
+  <!-- Footer JS: year, calendar, clock, and form submit -->
   <script>
-    // Set current year in footer automatically
+    // Year
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Flatpickr calendar
+    document.addEventListener('DOMContentLoaded', function () {
+      var el = document.getElementById('hjoz-date');
+      if (el && window.flatpickr) {
+        flatpickr(el, {
+          dateFormat: "Y-m-d",
+          minDate: "today",
+          maxDate: new Date().fp_incr(60),
+          disableMobile: true
+        });
+      }
+    });
+
+    // ClockPicker (analog) with 15-min snapping + AM/PM
+    $(function () {
+      var $t = $('#hjoz-time');
+
+      function roundToQuarter(h, m) {
+        var q = Math.round(m / 15) * 15;
+        if (q === 60) { q = 0; h = (h + 1) % 24; }
+        return { h: h, m: q };
+      }
+      function format12(h, m) {
+        var ap = h >= 12 ? 'PM' : 'AM';
+        var h12 = h % 12; if (h12 === 0) h12 = 12;
+        var mm = m < 10 ? '0' + m : m;
+        return (h12 < 10 ? '0' + h12 : h12) + ':' + mm + ' ' + ap;
+      }
+
+      $('.clockpicker').clockpicker({
+        autoclose: true,
+        twelvehour: true,
+        donetext: 'OK',
+        placement: 'bottom',
+        align: 'left',
+        container: 'body'
+      });
+
+      // Snap to 15 minutes after manual/clock input
+      $t.on('change', function(){
+        var v = $t.val().trim();
+        var m = v.match(/^(\d{1,2}):(\d{1,2})\s*(AM|PM)$/i);
+        if (!m) return;
+        var h = parseInt(m[1],10), min = parseInt(m[2],10), ap = m[3].toUpperCase();
+        if (ap === 'PM' && h !== 12) h += 12;
+        if (ap === 'AM' && h === 12) h = 0;
+        var r = roundToQuarter(h, min);
+        $t.val(format12(r.h, r.m));
+      });
+
+      // Default to next quarter-hour now
+      var now = new Date();
+      var init = roundToQuarter(now.getHours(), now.getMinutes());
+      $t.val(format12(init.h, init.m));
+    });
+
+    // Form submit to Google Forms
+    (function(){
+      const form = document.getElementById('hjoz-form');
+      const ok   = document.getElementById('hjoz-ok');
+      const err  = document.getElementById('hjoz-err');
+
+      // ✅ Correct ACTION URL
+      const ACTION = "https://docs.google.com/forms/d/e/1FAIpQLSec0G2G5ZC2A4Q_AYiqh8jlgUdpnj41p6CqHULFN8LHtHGVtw/formResponse";
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        ok.style.display = 'none';
+        err.style.display = 'none';
+
+        const data = new FormData(form);
+        try {
+          await fetch(ACTION, { method: 'POST', mode: 'no-cors', body: data });
+          form.reset();
+          ok.style.display = 'block';
+          ok.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } catch {
+          err.style.display = 'block';
+          err.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    })();
   </script>
-  <script>
-document.addEventListener('DOMContentLoaded', function () {
-  var el = document.getElementById('hjoz-date');
-  if (!el || !window.flatpickr) return;
-  flatpickr(el, {
-    dateFormat: "Y-m-d",
-    minDate: "today",
-    maxDate: new Date().fp_incr(60),
-    disableMobile: true
-  });
-});
-</script>
-
-  <div class="field">
-  <label class="label">Time <span class="hint">(tap the clock)</span></label>
-  <div class="clockpicker" data-autoclose="true" data-placement="bottom" data-align="left">
-    <!-- IMPORTANT: keep the Google Form name exactly as below -->
-    <input
-      class="input"
-      id="hjoz-time"
-      type="text"
-      name="entry.1080187328"
-      placeholder="07:30 PM"
-      required
-      readonly
-      style="cursor:pointer;"
-    />
-  </div>
-  <div class="hint">AM/PM • 15-minute steps</div>
-</div>
-
 </body>
 </html>
